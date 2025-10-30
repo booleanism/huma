@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
+	"github.com/booleanism/huma/v2"
 )
 
 // WriteTimeout is the timeout for writing to the client.

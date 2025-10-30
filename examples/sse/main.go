@@ -20,15 +20,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/adapters/humachi"
-	"github.com/danielgtaylor/huma/v2/adapters/humagin"
-	"github.com/danielgtaylor/huma/v2/humacli"
-	"github.com/danielgtaylor/huma/v2/sse"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/adapters/humachi"
+	"github.com/booleanism/huma/v2/adapters/humagin"
+	"github.com/booleanism/huma/v2/humacli"
+	"github.com/booleanism/huma/v2/sse"
 	"github.com/gin-gonic/gin"
 	"github.com/go-chi/chi/v5"
 
-	_ "github.com/danielgtaylor/huma/v2/formats/cbor"
+	_ "github.com/booleanism/huma/v2/formats/cbor"
 )
 
 // Options for the CLI.

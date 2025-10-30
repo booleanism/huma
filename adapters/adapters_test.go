@@ -8,19 +8,19 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/adapters/humabunrouter"
-	"github.com/danielgtaylor/huma/v2/adapters/humachi"
-	"github.com/danielgtaylor/huma/v2/adapters/humaecho"
-	"github.com/danielgtaylor/huma/v2/adapters/humafiber"
-	"github.com/danielgtaylor/huma/v2/adapters/humagin"
-	"github.com/danielgtaylor/huma/v2/adapters/humago"
-	"github.com/danielgtaylor/huma/v2/adapters/humahttprouter"
-	"github.com/danielgtaylor/huma/v2/adapters/humamux"
-	"github.com/danielgtaylor/huma/v2/humatest"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/adapters/humabunrouter"
+	"github.com/booleanism/huma/v2/adapters/humachi"
+	"github.com/booleanism/huma/v2/adapters/humaecho"
+	"github.com/booleanism/huma/v2/adapters/humafiber"
+	"github.com/booleanism/huma/v2/adapters/humagin"
+	"github.com/booleanism/huma/v2/adapters/humago"
+	"github.com/booleanism/huma/v2/adapters/humahttprouter"
+	"github.com/booleanism/huma/v2/adapters/humamux"
+	"github.com/booleanism/huma/v2/humatest"
 	"github.com/gin-gonic/gin"
 	"github.com/go-chi/chi/v5"
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/gorilla/mux"
 	"github.com/julienschmidt/httprouter"
 	"github.com/labstack/echo/v4"
@@ -103,7 +103,7 @@ func TestAdapters(t *testing.T) {
 				assert.Equal(t, 1, v.ProtoMajor)
 				assert.Equal(t, 1, v.ProtoMinor)
 			} else {
-				assert.Equal(t, "http", v.Proto)
+				assert.Equal(t, "HTTP/1.1", v.Proto)
 			}
 
 			// Make sure huma.WithValue works correctly

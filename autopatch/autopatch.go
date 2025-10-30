@@ -19,8 +19,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/casing"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/casing"
 	"github.com/danielgtaylor/shorthand/v2"
 	jsonpatch "github.com/evanphx/json-patch/v5"
 )

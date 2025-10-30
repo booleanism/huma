@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/humatest"
-	"github.com/danielgtaylor/huma/v2/sse"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/humatest"
+	"github.com/booleanism/huma/v2/sse"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

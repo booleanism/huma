@@ -5,7 +5,7 @@ package cbor
 import (
 	"io"
 
-	"github.com/danielgtaylor/huma/v2"
+	"github.com/booleanism/huma/v2"
 	"github.com/fxamacker/cbor/v2"
 )
 

@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/queryparam"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/queryparam"
 	"github.com/uptrace/bunrouter"
 )
 
