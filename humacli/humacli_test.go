@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/danielgtaylor/huma/v2/adapters/humago"
-	"github.com/danielgtaylor/huma/v2/humacli"
+	"github.com/booleanism/huma/v2"
+	"github.com/booleanism/huma/v2/adapters/humago"
+	"github.com/booleanism/huma/v2/humacli"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 )

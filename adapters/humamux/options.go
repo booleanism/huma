@@ -1,7 +1,7 @@
 package humamux
 
 import (
-	"github.com/danielgtaylor/huma/v2"
+	"github.com/booleanism/huma/v2"
 	"github.com/gorilla/mux"
 )
 

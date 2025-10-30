@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/gofiber/fiber/v2"
+	"github.com/booleanism/huma/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 func BenchmarkHumaFiber(b *testing.B) {
@@ -48,7 +48,7 @@ func BenchmarkNotHuma(b *testing.B) {
 
 	r := fiber.New()
 
-	r.Get("/foo/:id", func(c *fiber.Ctx) error {
+	r.Get("/foo/:id", func(c fiber.Ctx) error {
 		return c.JSON(&GreetingOutput{"Hello, " + c.Params("id")})
 	})
 

@@ -26,7 +26,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2/casing"
+	"github.com/booleanism/huma/v2/casing"
 )
 
 var errDeadlineUnsupported = fmt.Errorf("%w", http.ErrNotSupported)

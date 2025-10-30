@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
-	"github.com/gofiber/fiber/v2"
+	"github.com/booleanism/huma/v2"
+	"github.com/gofiber/fiber/v3"
 )
 
 // Unwrap extracts the underlying Fiber context from a Huma context. If passed a
@@ -20,7 +20,7 @@ import (
 // of the underlying Fiber/fasthttp libraries and how that impacts
 // memory-safety: https://docs.gofiber.io/#zero-allocation. Do not keep
 // references to the underlying context or its values!
-func Unwrap(ctx huma.Context) *fiber.Ctx {
+func Unwrap(ctx huma.Context) fiber.Ctx {
 	for {
 		if c, ok := ctx.(interface{ Unwrap() huma.Context }); ok {
 			ctx = c.Unwrap()
@@ -42,14 +42,14 @@ type fiberAdapter struct {
 type fiberWrapper struct {
 	op     *huma.Operation
 	status int
-	orig   *fiber.Ctx
+	orig   fiber.Ctx
 	ctx    context.Context
 }
 
 // check that fiberCtx implements huma.Context
 var _ huma.Context = &fiberWrapper{}
 
-func (c *fiberWrapper) Unwrap() *fiber.Ctx {
+func (c *fiberWrapper) Unwrap() fiber.Ctx {
 	return c.orig
 }
 
@@ -74,7 +74,7 @@ func (c *fiberWrapper) Host() string {
 }
 
 func (c *fiberWrapper) RemoteAddr() string {
-	return c.orig.Context().RemoteAddr().String()
+	return c.orig.RequestCtx().RemoteAddr().String()
 }
 
 func (c *fiberWrapper) URL() url.URL {
@@ -119,7 +119,7 @@ func (c *fiberWrapper) SetReadDeadline(deadline time.Time) error {
 	// 2. Set the Fiber app's `BodyLimit` to some small value like `1`
 	// Fiber will only call the request handler for streaming once the limit is
 	// reached. This is annoying but currently how things work.
-	return c.orig.Context().Conn().SetReadDeadline(deadline)
+	return c.orig.RequestCtx().Conn().SetReadDeadline(deadline)
 }
 
 func (c *fiberWrapper) SetStatus(code int) {
@@ -140,11 +140,11 @@ func (c *fiberWrapper) SetHeader(name string, value string) {
 }
 
 func (c *fiberWrapper) BodyWriter() io.Writer {
-	return c.orig.Context()
+	return c.orig.RequestCtx()
 }
 
 func (c *fiberWrapper) TLS() *tls.ConnectionState {
-	return c.orig.Context().TLSConnectionState()
+	return c.orig.RequestCtx().TLSConnectionState()
 }
 
 func (c *fiberWrapper) Version() huma.ProtoVersion {
@@ -154,11 +154,11 @@ func (c *fiberWrapper) Version() huma.ProtoVersion {
 }
 
 type router interface {
-	Add(method, path string, handlers ...fiber.Handler) fiber.Router
+	Add(methods []string, path string, handler fiber.Handler, handlers ...fiber.Handler) fiber.Router
 }
 
 type requestTester interface {
-	Test(*http.Request, ...int) (*http.Response, error)
+	Test(req *http.Request, config ...fiber.TestConfig) (*http.Response, error)
 }
 
 type contextWrapperValue struct {
@@ -193,9 +193,9 @@ func (a *fiberAdapter) Handle(op *huma.Operation, handler func(huma.Context)) {
 	path := op.Path
 	path = strings.ReplaceAll(path, "{", ":")
 	path = strings.ReplaceAll(path, "}", "")
-	a.router.Add(op.Method, path, func(c *fiber.Ctx) error {
+	a.router.Add([]string{op.Method}, path, func(c fiber.Ctx) error {
 		var values []*contextWrapperValue
-		c.Context().VisitUserValuesAll(func(key, value any) {
+		c.RequestCtx().VisitUserValuesAll(func(key, value any) {
 			values = append(values, &contextWrapperValue{
 				Key:   key,
 				Value: value,
@@ -206,7 +206,7 @@ func (a *fiberAdapter) Handle(op *huma.Operation, handler func(huma.Context)) {
 			orig: c,
 			ctx: &contextWrapper{
 				values:  values,
-				Context: c.UserContext(),
+				Context: c.Context(),
 			},
 		})
 		return nil

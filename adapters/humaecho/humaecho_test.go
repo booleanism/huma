@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/danielgtaylor/huma/v2"
+	"github.com/booleanism/huma/v2"
 	"github.com/labstack/echo/v4"
 )
 

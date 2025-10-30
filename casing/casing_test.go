@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/danielgtaylor/huma/v2/casing"
+	"github.com/booleanism/huma/v2/casing"
 	"github.com/stretchr/testify/assert"
 )
 
